@@ -4,19 +4,19 @@ export const PRODUCT_CATEGORIES = [
         value:"ui_kits" as const ,
         featured:[
             {
-                neme:"Editor picks",
+                name:"Editor picks",
                 href:"#",
-                imageSrc: "./nav/ui-kits/mixed.jpg",
+                imageSrc: "/nav/ui-kits/mixed.jpg",
             },
             {
-                neme:"New Arrivals",
+                name:"New Arrivals",
                 href:"#",
-                imageSrc: "./nav/ui-kits/blue.jpg",
+                imageSrc: "/nav/ui-kits/blue.jpg",
             },
             {
-                neme:"BestSellers",
+                name:"BestSellers",
                 href:"#",
-                imageSrc: "./nav/ui-kits/purple.jpg",
+                imageSrc: "/nav/ui-kits/purple.jpg",
             }
 
 
@@ -27,19 +27,19 @@ export const PRODUCT_CATEGORIES = [
         value:"icons" as const ,
         featured:[
             {
-                neme:"Favorite Icon picks",
+                name:"Favorite Icon picks",
                 href:"#",
-                imageSrc: "./nav/icons/picks.jpg",
+                imageSrc: "/nav/icons/picks.jpg",
             },
             {
-                neme:"New Arrivals",
+                name:"New Arrivals",
                 href:"#",
-                imageSrc: "./nav/icons/new.jpg",
+                imageSrc: "/nav/icons/new.jpg",
             },
             {
-                neme:"BestSelling Icons",
+                name:"BestSelling Icons",
                 href:"#",
-                imageSrc: "./nav/icons/bestsellers.jpg",
+                imageSrc: "/nav/icons/bestsellers.jpg",
             }
 
 
