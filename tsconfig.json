@@ -1,15 +1,16 @@
 {
 
   "compilerOptions": {
-    // "moduleResolution": "Node",
+    "target": "esnext",
+    "module": "commonjs",
+
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -23,9 +24,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "ts-node": {
-    "esm": true
-},
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/server.mjs"],
   "exclude": ["node_modules"]
 }
