@@ -5,7 +5,7 @@ export const Users: CollectionConfig = {
     auth: {
         verify:{
             generateEmailHTML:({token})=> {
-                return `<p>hello pls verify`
+                return `<p>hello pls verify</p>`
             }
         }
     },
