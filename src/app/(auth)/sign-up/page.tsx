@@ -9,11 +9,13 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { toast } from "sonner";
 import {
   AuthCredentialsValidator,
   TAuthCredentialsValidator,
 } from "@/lib/validators/account-credentials-validator";
+import { trpc } from "@/trpc/client";
+import { ZodError } from "zod";
 
 const Page = () => {
   const {
@@ -24,8 +26,30 @@ const Page = () => {
     resolver: zodResolver(AuthCredentialsValidator),
   });
 
+  //   const { data } = trpc.anyApiRoute.useQuery();
+  //   console.log(data);
+
+  const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({
+    onError: (err) => {
+      if (err.data?.code === "CONFLICT") {
+        toast.error("This email is already in use. Sign in instead?");
+        return;
+      }
+
+      if (err instanceof ZodError) {
+        toast.error(err.issues[0].message);
+        return;
+      }
+
+      toast.error("Oops! Something went wrong. Please try again.");
+    },
+    onSuccess: ({ sentToEmail }) => {
+      toast.success(`Verification email sent to ${sentToEmail}`);
+    },
+  });
+
   const onSubmit = ({ email, password }: TAuthCredentialsValidator) => {
-    //send data to the server
+    mutate({ email, password });
   };
 
   return (
@@ -58,6 +82,7 @@ const Page = () => {
                     className={cn({
                       "focus-visible:ring-red-500 ": errors.email,
                     })}
+                    name="email"
                     placeholder="you@example.com"
                   />
                 </div>
@@ -65,9 +90,11 @@ const Page = () => {
                   <Label htmlFor="password">Password</Label>
                   <Input
                     {...register("password")}
+                    type="password"
                     className={cn({
                       "focus-visible:ring-red-500 ": errors.password,
                     })}
+                    name="password"
                     placeholder="password"
                   />
                 </div>
