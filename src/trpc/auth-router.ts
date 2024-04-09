@@ -36,7 +36,7 @@ export const authRouter = router({
       return { success: true, sentToEmail: email }
     }),
 
-    verifyEmail: publicProcedure
+  verifyEmail: publicProcedure
     .input(z.object({ token: z.string() }))
     .query(async ({ input }) => {
       const { token } = input
@@ -52,5 +52,29 @@ export const authRouter = router({
         throw new TRPCError({ code: 'UNAUTHORIZED' })
 
       return { success: true }
+    }),
+
+  signIn: publicProcedure
+    .input(AuthCredentialsValidator)
+    .mutation(async ({ input, ctx }) => {
+      const { email, password } = input
+      const { res } = ctx
+
+      const payload = await getPayloadClient()
+
+      try {
+        await payload.login({
+          collection: 'users',
+          data: {
+            email,
+            password,
+          },
+          res,
+        })
+
+        return { success: true }
+      } catch (err) {
+        throw new TRPCError({ code: 'UNAUTHORIZED' })
+      }
     }),
 })
