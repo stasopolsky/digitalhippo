@@ -12,7 +12,7 @@ export const useAuth = () => {
           method: 'POST',
           credentials: 'include',
           headers: {
-            'Content-Type': ' /json',
+            'Content-Type': 'application/json',
           },
         }
       )
